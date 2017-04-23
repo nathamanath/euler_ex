@@ -19,7 +19,7 @@ defmodule Euler.Five do
   `i` - current value of divisor
   `max` - max value of divisor
   """
-  def five(n, max, min, max), do: n
+  def five(n, max, _min, max), do: n
 
   def five(n, i, min, max) when rem(n, i) == 0, do: five(n, i + 1, min, max)
   def five(n, _i, min, max), do: five(n + 1, min, min, max)

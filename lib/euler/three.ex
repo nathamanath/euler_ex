@@ -33,21 +33,14 @@ defmodule Euler.Three do
 
     # PLaying with with
     # TODO: refactor
-    with true <- prime(i, primes),
+    with true <- is_prime?(i, primes),
       true <- is_factor(n, i) do
         three(n, rt_n, new_i, [i | primes], i)
     else
-      :not_prime -> three(n, rt_n, new_i, primes, last_factor)
       :not_factor -> three(n, rt_n, new_i, [i | primes], last_factor)
+      _ -> three(n, rt_n, new_i, primes, last_factor)
     end
 
-  end
-
-  defp prime(i, primes) do
-    case is_prime?(i, primes) do
-      true -> true
-      _ -> :not_prime
-    end
   end
 
   defp is_factor(n, i) when rem(n, i) == 0, do: true
