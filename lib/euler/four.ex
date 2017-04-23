@@ -11,7 +11,7 @@ defmodule Euler.Four do
   def four(_a, max, _min, max, palindrome), do: palindrome
 
   def four(max, b, min, max, palindrome) do
-    new_min = min + 1 # 'cause a + b == b + a
+    new_min = min + 1 # 'cause a + b == b + a... less iterations to test
     check_and_go(max * b, palindrome, [new_min, b + 1, new_min, max])
   end
 
