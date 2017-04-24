@@ -37,6 +37,7 @@ defmodule Euler.Three do
   brute force aproach ran in ~30s, this way takes ~0.5s
   """
   def top_factor(1, _i, [top | _rest]), do: top
+
   def top_factor(n, i, factors) when rem(n, i) == 0 do
     top_factor(div(n, i), i, [i | factors])
   end
