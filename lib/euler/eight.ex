@@ -40,7 +40,7 @@ defmodule Euler.Eight do
   `number` - the list were searching
   `best_n` - best n adjacent numbers so far
   """
-  def eight(n, offset, _number, product) when n + offset > 1000, do: product
+  def eight(n, offset, number, product) when n + offset > length(number), do: product
 
   def eight(n, offset, number, product) do
     current_product = str_product(Enum.slice(number, offset, n))
