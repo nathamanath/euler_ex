@@ -38,6 +38,8 @@ defmodule Euler.Eight do
   @doc """
   map product of each `n` adjacent didgets in `list` in parallel
 
+  parallel for learning and fun... also it goes 0.1s faster now!!!!
+
   returns List
   """
   def map(n, list) do
