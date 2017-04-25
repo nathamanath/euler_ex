@@ -32,28 +32,26 @@ defmodule Euler.Eight do
     '7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450'
   end
 
-  def run(n), do: eight(n, 0, number(), 0)
+  # def run(n), do: eight(n, 0, number(), 0)
+  def run(n), do: map(n, number()) |> Enum.max
 
   @doc """
-  `n` - find top `n` adjacent numbers
-  `offset` - offset
-  `number` - the list were searching
-  `best_n` - best n adjacent numbers so far
+  map product of each `n` adjacent didgets in `list` in parallel
+
+  `n` - number of adjacent numbers per chunk
+  `list` - list to take numbers from
+
+  returns List
   """
-  def eight(n, offset, number, product) when n + offset > length(number), do: product
-
-  def eight(n, offset, number, product) do
-    current_product = str_product(Enum.slice(number, offset, n))
-    new_offset = offset + 1
-
-    case current_product > product do
-      true -> eight(n, new_offset, number, current_product)
-      _ -> eight(n, new_offset, number, product)
-    end
+  def map(n, list) do
+    1..length(list) - n
+    |> Enum.map(&Task.async(fn -> chars_product(&1, n, list) end))
+    |> Enum.map(&Task.await/1)
   end
 
-  def str_product(list) do
-    Enum.reduce(list, 1, fn(char, acc) ->
+  def chars_product(i, n, list) do
+    Enum.slice(list, i, n)
+    |> Enum.reduce(1, fn(char, acc) ->
       List.to_integer([char]) * acc
     end)
   end
