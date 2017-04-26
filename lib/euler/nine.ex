@@ -11,6 +11,8 @@ defmodule Euler.Nine do
 
   def run(n), do: nine(n, 1, 1, 1)
 
+  # OPTIMISE: Can skip a load of iterations if a + b + c always == 1000
+
   @doc """
   find Pythagorean triplet for which `a` + `b` + `c` = `n`
   """
