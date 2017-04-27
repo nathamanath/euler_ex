@@ -9,16 +9,16 @@ defmodule Euler.Nine do
   Find the product abc.
   """
 
-  def run(n), do: nine(n, 1, 1, 1)
-
-  # OPTIMISE: Can skip a load of iterations if a + b + c always == 1000
+  def run(n), do: nine(n, 1, 2, n - 3)
 
   @doc """
   find Pythagorean triplet for which `a` + `b` + `c` = `n`
+
+  only tries combos where `a + b + c == 1000`
+  and where `c > b > a`
   """
-  def nine(_n, a, b, c) when a*a + b*b == c*c and a + b + c == 1000, do: a*b*c
-  def nine(n, c, c, c), do: nine(n, 1, 1, c + 1)
-  def nine(n, b, b, c), do: nine(n, 1, b + 1, c)
-  def nine(n, a, b, c), do: nine(n, a + 1, b, c)
+  def nine(_n, a, b, c) when a*a + b*b == c*c, do: a*b*c
+  def nine(n, a, b, c) when a+1 >= b-1, do: nine(n, 1, n-c, c-1)
+  def nine(n, a, b, c), do: nine(n, a+1, b-1 , c)
 
 end
