@@ -36,18 +36,16 @@ defmodule Euler.Ten do
   ## Examples
 
     iex> Euler.Ten.sive(10)
-    [7, 5, 3, 2]
+    [2, 3, 5, 7]
 
   """
   @spec sive(number) :: list
-  def sive(number) when is_integer(number), do: do_sive(Enum.to_list(2..number), [])
+  def sive(number), do: do_sive(Enum.to_list(2..number), 2, number)
 
-  # list is working list... initially integers from 2..n
-  # primes is list of found prime numbers
-  defp do_sive([], primes), do: primes
+  defp do_sive(list, p, n) when p > n, do: list
 
-  defp do_sive([prime | rest], primes) do
-    do_sive(Enum.filter(rest, fn(x) -> rem(x, prime) != 0 end), [prime | primes])
+  defp do_sive(list, p, n) do
+    do_sive(Enum.reject(list, fn(x) -> x > p and rem(x, p) == 0 end), p + 1, n)
   end
 
 end
