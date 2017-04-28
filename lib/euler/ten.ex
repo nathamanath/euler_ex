@@ -5,6 +5,37 @@ defmodule Euler.Ten do
   Find the sum of all the primes below two million.
   """
 
+  defmodule Prime do
+    @doc """
+    Infinate stream of primes
+
+    ## Examples
+
+      iex> Euler.Ten.Prime.sequence |> Enum.take_while(&(&1 < 10))
+      [2, 3, 5, 7]
+
+    """
+    def sequence do
+      Stream.iterate(2, &sequence_step&1)
+      |> Stream.filter(&is_prime/1)
+    end
+
+    # skip evens > 2... none of them are prime
+    defp sequence_step(i) when i == 2, do: i + 1
+    defp sequence_step(i), do: i + 2
+
+    # TODO: how to cache primes and use in test?
+    # TODO: does that speed things up?
+
+    def is_prime(2), do: true
+    def is_prime(n) when n < 2 or rem(n, 2) == 0, do: false
+    def is_prime(n), do: is_prime(n, 3)
+
+    defp is_prime(n, k) when n < k*k, do: true
+    defp is_prime(n, k) when rem(n, k) == 0, do: false
+    defp is_prime(n, k), do: is_prime(n, k+2)
+  end
+
   @doc """
   Get sum of prime numbers < `n`
 
@@ -18,34 +49,10 @@ defmodule Euler.Ten do
 
   """
   @spec run(number) :: integer
-  def run(number), do: number |> sive |> Enum.reduce(fn(i, acc) -> i + acc end)
-
-  @doc """
-  Eratosthenes sive algorithm - Find prime numbers under `number`
-
-  * Create list of all numbers from 2 to N.
-  * Let p initially equal to 2. The first prime.
-  * Strike all multiples of p from the list less than or equal to N.
-  * Find the next number after p, that’s not yet crossed out on the list. This
-  ..is the next prime.
-  * Repeat step 3 and 4 for the new p, unless p2 is greater than N.
-  * Numbers not crossed out on the list are primes below the limit N.
-
-  OPTIMIZE: too slow... try not to make a list each time
-
-  ## Examples
-
-    iex> Euler.Ten.sive(10)
-    [2, 3, 5, 7]
-
-  """
-  @spec sive(number) :: list
-  def sive(number), do: do_sive(Enum.to_list(2..number), 2, number)
-
-  defp do_sive(list, p, n) when p > n, do: list
-
-  defp do_sive(list, p, n) do
-    do_sive(Enum.reject(list, fn(x) -> x > p and rem(x, p) == 0 end), p + 1, n)
+  def run(number) do
+    Prime.sequence
+    |> Enum.take_while(fn(x) -> x < number end)
+    |> Enum.reduce(fn(i, acc) -> i + acc end)
   end
 
 end
