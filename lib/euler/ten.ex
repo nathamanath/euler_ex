@@ -20,10 +20,10 @@ defmodule Euler.Ten do
 
   """
   @spec run(number) :: integer
-  def run(number) do
-    Euler.Prime.sequence
-    |> Enum.take_while(fn(x) -> x < number end)
-    |> Enum.reduce(fn(i, acc) -> i + acc end)
+  def run(n) do
+    Prime.sequence
+    |> Enum.take_while(&(&1 < n))
+    |> Enum.reduce(&(&1 + &2))
   end
 
 end

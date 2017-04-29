@@ -11,6 +11,11 @@ defmodule Euler.Seven do
   @doc """
   get nth prime
   """
-  def run(n), do: Prime.sequence |> Stream.take(n) |> Enum.to_list |> List.last
+  def run(n) do
+    Prime.sequence
+    |> Stream.take(n)
+    |> Enum.to_list
+    |> List.last
+  end
 
 end

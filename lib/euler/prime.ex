@@ -1,6 +1,7 @@
 defmodule Euler.Prime do
   @doc """
-  Infinate stream of primes
+  Infinite stream of prime numbers.
+  Aim is to generate primes as fast as possible.
 
   ## Examples
 
@@ -26,11 +27,11 @@ defmodule Euler.Prime do
   https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
   ## Examples
-    # iex> Euler.Prime.is_prime(5)
-    # true
+    iex> Euler.Prime.is_prime(1_000_000)
+    false
 
     iex> Euler.Prime.is_prime(7919)
-    false
+    true
   """
   @spec is_prime(number) :: boolean
   def is_prime(n) when n <= 1, do: false
@@ -38,8 +39,8 @@ defmodule Euler.Prime do
   def is_prime(n) when rem(n, 2) == 0 or rem(n, 3) == 0, do: false
   def is_prime(n), do: do_is_prime(n, 5)
 
-  defp do_is_prime(n, i) when i*i > n, do: true
-  defp do_is_prime(n, i) when rem(n, i) == 0 or rem(n, i+2) == 0, do: false
-  defp do_is_prime(n, i), do: do_is_prime(n, i+6)
+  defp do_is_prime(n, i) when i * i > n, do: true
+  defp do_is_prime(n, i) when rem(n, i) == 0 or rem(n, i + 2) == 0, do: false
+  defp do_is_prime(n, i), do: do_is_prime(n, i + 6)
 
 end
