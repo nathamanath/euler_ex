@@ -1,4 +1,4 @@
-defmodule Euler.Six do
+defmodule Euler.Q006 do
   @moduledoc """
   The sum of the squares of the first ten natural numbers is,
   12 + 22 + ... + 102 = 385
@@ -21,12 +21,23 @@ defmodule Euler.Six do
 
   summation of square of natural numbers
   `Sn2 = n(n+1)(2n+1)/6`
+
+  ## Examples
+
+    iex> Euler.Q006.run(10)
+    2640
+
+    iex> Euler.Q006.run(100)
+    25164150
+
   """
+  @spec run(integer) :: integer
   def run(n) do
     sn = (n * (n + 1) / 2)
     sn2 = n * (n + 1) * (2 * n + 1) / 6
 
     :math.pow(sn, 2) - sn2
+    |> round
   end
 
 end

@@ -1,11 +1,11 @@
-defmodule Euler.Prime do
+defmodule Euler.Utils.Prime do
   @doc """
   Infinite stream of prime numbers.
   Aim is to generate primes as fast as possible.
 
   ## Examples
 
-    iex> Euler.Prime.sequence |> Enum.take(4) |> Enum.to_list
+    iex> Euler.Utils.Prime.sequence |> Enum.take(4) |> Enum.to_list
     [2, 3, 5, 7]
 
   """
@@ -27,10 +27,10 @@ defmodule Euler.Prime do
   https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
   ## Examples
-    iex> Euler.Prime.is_prime(1_000_000)
+    iex> Euler.Utils.Prime.is_prime(1_000_000)
     false
 
-    iex> Euler.Prime.is_prime(7919)
+    iex> Euler.Utils.Prime.is_prime(7919)
     true
   """
   @spec is_prime(number) :: boolean

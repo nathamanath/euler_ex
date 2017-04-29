@@ -1,4 +1,4 @@
-defmodule Euler.Eight do
+defmodule Euler.Q008 do
   @moduledoc """
   The four adjacent digits in the 1000-digit number that have the greatest
   product are 9 × 9 × 8 × 9 = 5832.
@@ -32,26 +32,29 @@ defmodule Euler.Eight do
 
   @doc """
   get largest product of `n` adjacent chars from list `@number`
+
+  ## Examples
+
+    iex> Euler.Q008.run 4
+    5832
+
+    iex> Euler.Q008.run 13
+    23514624000
+
   """
+  @spec run(integer) :: integer
   def run(n), do: map(n, @number) |> Enum.max
 
-  @doc """
-  map product of each `n` adjacent didgets in `list` in parallel
-
-  parallel for learning and fun... also it goes 0.1s faster now!!!!
-
-  returns List
-  """
-  def map(n, list) do
+  # map product of each `n` adjacent didgets in `list` in parallel
+  # parallel for learning and fun... also it goes a fith faster now
+  defp map(n, list) do
     1..length(list) - n
     |> Enum.map(&Task.async(fn -> chars_product(&1, n, list) end))
     |> Enum.map(&Task.await/1)
   end
 
-  @doc """
-  get product of `n` chars starting at offset `i` from charlist `list`
-  """
-  def chars_product(i, n, list) do
+  # get product of `n` chars starting at offset `i` from charlist `list`
+  defp chars_product(i, n, list) do
     Enum.slice(list, i, n)
     |> Enum.reduce(1, fn(char, acc) ->
       List.to_integer([char]) * acc
