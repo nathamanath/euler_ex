@@ -33,5 +33,38 @@ defmodule Euler.Q005 do
   defp five(n, max, _min, max), do: n
 
   defp five(n, i, min, max) when rem(n, i) == 0, do: five(n, i + 1, min, max)
-  defp five(n, _i, min, max), do: five(n + 1, min, min, max)
+  defp five(2, _i, min, max), do: five(3 + 1, min, min, max)
+  defp five(n, _i, min, max), do: five(n + 2, min, min, max)
+
 end
+
+# make list of potential divisors descending
+# filter out divisors which are factors of other divisors
+
+
+
+# 10
+# 9
+# 8
+# 7
+# 6
+
+# 20
+# 19
+# 18
+# 17
+# 16
+# 15
+# 14
+# 13
+# 12
+# 11
+
+
+# start n = head of list
+
+# is it even?
+# does head fit?
+# if yes, all divisors which are factors of head go
+
+# if head no fit, increment n to next even #, reset divisor list

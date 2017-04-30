@@ -11,7 +11,7 @@ defmodule Euler.Utils.Prime do
   """
   @spec sequence() :: Enumerable.t
   def sequence do
-    Stream.iterate(2, &sequence_step&1)
+    Stream.iterate(2, &sequence_step/1)
     |> Stream.filter(&is_prime/1)
   end
 
@@ -27,11 +27,13 @@ defmodule Euler.Utils.Prime do
   https://en.wikipedia.org/wiki/Primality_test#Pseudocode
 
   ## Examples
+
     iex> Euler.Utils.Prime.is_prime(1_000_000)
     false
 
     iex> Euler.Utils.Prime.is_prime(7919)
     true
+
   """
   @spec is_prime(number) :: boolean
   def is_prime(n) when n <= 1, do: false

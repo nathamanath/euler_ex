@@ -16,6 +16,8 @@ defmodule Euler.Q006 do
   @doc """
   diff sum of the squares of the first `n` natural numbers and square of the sum
 
+  Thanks Gauss.
+
   summation of natural numbers
   `Sn = n(n+1)/2`
 
