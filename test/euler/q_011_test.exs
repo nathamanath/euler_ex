@@ -1,4 +1,4 @@
-defmodule Euler.ElevenTest do
+defmodule Euler.Q011Test do
   use ExUnit.Case
-  doctest Euler.Eleven
+  doctest Euler.Q011
 end
