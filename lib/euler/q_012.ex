@@ -27,42 +27,24 @@ defmodule Euler.Q012 do
 
   ## Examples
 
-    iex> Euler.Q012.run 1
-    3
-
     iex> Euler.Q012.run 2
     6
-
-    iex> Euler.Q012.run 3
-    6
-
-    iex> Euler.Q012.run 4
-    28
-
-    iex> Euler.Q012.run 5
-    28
 
   """
   @spec run(integer) :: integer
   def run(n) do
-    triangles()
-    |> Stream.take_while(&(divisors(&1) <= n + 1))
+    Stream.unfold({n, 1, 2, 0}, &step/1)
     |> Enum.max
   end
 
-  @doc """
-  stream of triangle numbers
-
-  ## Examples
-
-    iex> Euler.Q012.triangles |> Enum.take(7)
-    [1, 3, 6, 10, 15, 21, 28]
-  """
-  def triangles do
-    Stream.unfold({1, 2}, fn({n, i}) ->
-      {n, {n + i, i + 1}}
-    end)
-  end
+  # generate next triangle number unless div > d
+  #
+  # d - stop when > d divisors
+  # n - current triangle number
+  # i - we are generating ith triangle number
+  # div - number of divisors of previous n
+  defp step({d, _n, _i, div}) when div > d, do: nil
+  defp step({d, n, i, _div}), do: {n, {d, n + i, i + 1, divisors(n)}}
 
   @doc """
   count divisors of n
