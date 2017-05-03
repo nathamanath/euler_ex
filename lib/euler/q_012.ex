@@ -27,34 +27,36 @@ defmodule Euler.Q012 do
 
   ## Examples
 
-    iex> Euler.Q012.run 5
+    iex> Euler.Q012.run 1
+    3
+
+    iex> Euler.Q012.run 2
+    6
+
+    iex> Euler.Q012.run 3
+    6
+
+    iex> Euler.Q012.run 4
     28
 
-    iex> Euler.Q012.run 50
-    24976
-
-    iex> Euler.Q012.run 500
-    24976
+    iex> Euler.Q012.run 5
+    28
 
   """
   @spec run(integer) :: integer
   def run(n) do
     triangles()
-    |> Stream.take_while(&(divisors(&1) <= n))
+    |> Stream.take_while(&(divisors(&1) <= n + 1))
     |> Enum.max
   end
 
-
-  # count divisors
-  # stop when divisors > n
-
   @doc """
-  stream triangle numbers
+  stream of triangle numbers
 
   ## Examples
 
-    iex> Euler.Q012.triangles |> Enum.take(5)
-    [1, 3, 6, 10, 15]
+    iex> Euler.Q012.triangles |> Enum.take(7)
+    [1, 3, 6, 10, 15, 21, 28]
   """
   def triangles do
     Stream.unfold({1, 2}, fn({n, i}) ->
@@ -65,20 +67,30 @@ defmodule Euler.Q012 do
   @doc """
   count divisors of n
 
+  optimised version based on this:
   https://stackoverflow.com/questions/11699324/algorithm-to-find-all-the-exact-divisors-of-a-given-integer
 
   ## Examples
 
-    iex> Euler.Q012.divisors 10
-    4
+    iex> Euler.Q012.divisors 28
+    6
 
   """
-  def divisors(n), do: do_divisors(n, :math.sqrt(n), 1, 0)
+  def divisors(n), do: do_divisors(n, :math.sqrt(n), 1, [])
 
   # n - subject
   # i - number were testing against n
   # d - current divisor count
-  defp do_divisors(_n, rtn, i, d) when i > rtn, do: d
-  defp do_divisors(n, rtn, i, d) when rem(n, i) == 0, do: do_divisors(n, rtn, i + 1, d + 2)
-  defp do_divisors(n, rtn, i, d), do: do_divisors(n, rtn, i + 1, d)
+  defp do_divisors(_n, rtn, i, divisors) when i > rtn, do: length divisors
+
+  defp do_divisors(n, rtn, i, divisors) when rem(n, i) == 0 and i != n/i do
+    do_divisors(n, rtn, i + 1, [i, n/i | divisors])
+  end
+
+  defp do_divisors(n, rtn, i, divisors) when rem(n, i) == 0 do
+    do_divisors(n, rtn, i + 1, [i | divisors])
+  end
+
+  defp do_divisors(n, rtn, i, divisors), do: do_divisors(n, rtn, i + 1, divisors)
+
 end
