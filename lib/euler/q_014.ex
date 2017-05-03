@@ -1,4 +1,4 @@
-defmodule Euler.Q013 do
+defmodule Euler.Q014 do
   @moduledoc """
   The following iterative sequence is defined for the set of positive integers:
 
