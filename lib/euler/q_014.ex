@@ -17,4 +17,31 @@ defmodule Euler.Q014 do
   NOTE: Once the chain starts the terms are allowed to go above one million.
   """
 
+  @doc """
+  Stream solutions for each integer < `n`, find value of n with longest sequence
+
+  ## Examples
+
+    iex> Euler.Q014.run 20
+    13
+
+  """
+  @spec run(integer) :: integer
+  def run(n) do
+    1
+  end
+
+  @doc """
+  Collatz Problem sequence starting at `n`
+  TODO: stream this
+  """
+  @spec collatz(integer) :: [integer]
+  def collatz(n) do
+    do_collatz(n, [n])
+  end
+
+  defp do_collatz(n, [1, _rest] = sequence), do: sequence
+  defp do_collatz(n, sequence) when rem(n, 2) == 0, do: do_collatz(n, [n/2 | sequence])
+  defp do_collatz(n, sequence), do: do_collatz(n, [3*n + 1 | sequence])
+
 end
