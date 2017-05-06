@@ -18,30 +18,44 @@ defmodule Euler.Q014 do
   """
 
   @doc """
-  Stream solutions for each integer < `n`, find value of n with longest sequence
+  Find integer `i` < `n` which has longest Collatz sequence
+
+  * Stream tuples {i, solution_length}
+  * take while i < n
+  * get i for max length
 
   ## Examples
 
-    iex> Euler.Q014.run 20
-    13
+    iex> Euler.Q014.run 13
+    9
 
   """
   @spec run(integer) :: integer
   def run(n) do
-    1
+    {result, _length} = Stream.iterate(1, &(&1 + 1))
+    |> Stream.map(&({&1, &1 |> collatz |> length}))
+    |> Stream.take_while(fn({i, _length}) -> i < n end)
+    |> Enum.max_by(fn({_i, length}) -> length end)
+
+    result
   end
 
   @doc """
-  Collatz Problem sequence starting at `n`
-  TODO: stream this
+  Collatz conjecture starting at `n`
+
+  ## Examples
+
+    iex> Euler.Q014.collatz 13
+    [13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
+
   """
   @spec collatz(integer) :: [integer]
-  def collatz(n) do
-    do_collatz(n, [n])
-  end
+  def collatz(n), do: do_collatz([n])
 
-  defp do_collatz(n, [1, _rest] = sequence), do: sequence
-  defp do_collatz(n, sequence) when rem(n, 2) == 0, do: do_collatz(n, [n/2 | sequence])
-  defp do_collatz(n, sequence), do: do_collatz(n, [3*n + 1 | sequence])
+  defp do_collatz([1 | _] = sequence), do: Enum.reverse sequence
+  defp do_collatz([n | _] = sequence) when rem(n, 2) == 0 do
+    do_collatz [div(n, 2) | sequence]
+  end
+  defp do_collatz([n | _] = sequence), do: do_collatz([3*n + 1 | sequence])
 
 end
