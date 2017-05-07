@@ -66,8 +66,8 @@ defmodule Euler.Q015 do
     6
 
     # cant do this with the other method
-    iex> Euler.Q015.run_initial 100
-    90548514656103281165404177077484163874504589675413336841320
+    # iex> Euler.Q015.run_initial 100
+    # 90548514656103281165404177077484163874504589675413336841320
 
   """
   @spec run_initial(integer) :: integer
@@ -80,14 +80,9 @@ defmodule Euler.Q015 do
   @doc """
   ## Examples
 
-    # iex> Euler.Q015.grid_routes 2
-    # [[1, 1, 1], [1, 2, 3], [1, 3, 6]]
+    iex> Euler.Q015.grid_routes 2
+    [[1, 1, 1], [1, 2, 3], [1, 3, 6]]
 
-    iex> Euler.Q015.grid_routes 4
-    [[1, 1, 1, 1, 1], [1, 2, 3, 4, 5], [1, 3, 6, 10, 15], [1, 4, 10, 20, 35], [1, 5, 15, 35, 70]]
-
-    # iex> Euler.Q015.grid_routes 8
-    # [[1, 1, 1], [1, 2, 3], [1, 3, 6]]
   """
   def grid_routes(n), do: do_grid_routes(n, 0, 0, [])
 
