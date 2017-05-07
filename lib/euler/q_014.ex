@@ -33,9 +33,9 @@ defmodule Euler.Q014 do
   @spec run(integer) :: integer
   def run(n) do
     {result, _length} = Stream.iterate(1, &(&1 + 1))
-    |> Stream.map(&({&1, &1 |> collatz |> length}))
-    |> Stream.take_while(fn({i, _length}) -> i < n end)
-    |> Enum.max_by(fn({_i, length}) -> length end)
+      |> Stream.map(&({&1, &1 |> collatz |> length}))
+      |> Stream.take_while(fn({i, _length}) -> i < n end)
+      |> Enum.max_by(fn({_i, length}) -> length end)
 
     result
   end
