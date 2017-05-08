@@ -106,6 +106,7 @@ defmodule Euler.Q015 do
 
   defp do_grid_routes(n, row, col, [last | _] = rows) do
     # reconstruct matrix from rows vector
+    # OPTIMIZE: this without the reshaping will go faster.
     above = rows
       |> Enum.reverse
       |> Enum.chunk(n+1)
