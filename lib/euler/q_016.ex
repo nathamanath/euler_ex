@@ -5,4 +5,24 @@ defmodule Euler.Q016 do
   What is the sum of the digits of the number 2^1000?
   """
 
+  @doc """
+  sum of didgits of `n` to the power of `power`
+
+  ## Examples
+
+    iex> Euler.Q016.run(2, 15)
+    26
+
+    iex> Euler.Q016.run(2, 1000)
+    1366
+
+  """
+  @spec run(integer, integer) :: integer
+  def run(n, power) do
+    :math.pow(n, power)
+    |> round() # float as scientific notation to integer
+    |> Integer.to_string()
+    |> String.splitter("", trim: true)
+    |> Enum.reduce(0, &(String.to_integer(&1) + &2))
+  end
 end
