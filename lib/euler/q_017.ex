@@ -12,6 +12,8 @@ defmodule Euler.Q017 do
   British usage.
   """
 
+  @number_map [{1, "one"}, {2, "two"}, {3, "three"}, {4, "four"}, {5, "five"}]
+
   @doc """
   Sum of the length of numbers from `range` in words
 
@@ -20,9 +22,21 @@ defmodule Euler.Q017 do
     iex> Euler.Q017.run 1..5
     19
 
+    iex> Euler.Q017.run 1..1000
+    19
+
   """
   def run(range) do
+    range
+    |> Enum.map(&number_to_words/1)
+    |> Enum.map(&String.length/1)
+    |> Enum.reduce(0, &(&1 + &2))
+  end
 
+  # TODO: numbers > 5
+  defp number_to_words(number) do
+    {_key, word} = @number_map |> Enum.find(fn({k, v}) -> k == number end)
+    word
   end
 
 end
