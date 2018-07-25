@@ -1,4 +1,4 @@
-defmodule Euler.Q017 do
+defmodule Euler.Q018 do
   @moduledoc """
   By starting at the top of the triangle below and moving to adjacent numbers on
   the row below, the maximum total from top to bottom is 23.
@@ -33,4 +33,39 @@ defmodule Euler.Q017 do
   containing one-hundred rows; it cannot be solved by brute force, and requires
   a clever method! ;o)
   """
+
+  @doc """
+  Find highest scoring route through triangle.
+
+  * Start at bottom, solve all routes between bottom 2 rows
+  * Make list of best routes the bottom row
+  * Repeat until only 1 row left
+
+  ## Examples
+
+    iex> Euler.Q018.best_route([[3], [7, 4], [2, 4, 6], [8, 5, 9, 3]])
+    23
+
+  """
+  @spec best_route([[integer]]) :: integer
+  def best_route(triangle), do: do_best_route(Enum.reverse(triangle))
+
+  defp do_best_route([score]), do: hd(score)
+
+  # Pattern match bottom 2 rows, get best posibilities for these rows, and
+  # prepend the single resulting row to tail
+  defp do_best_route([bottom, next | t]) do
+    do_best_route([merge_rows(bottom, next, []) | t])
+  end
+
+  @doc """
+  Merge 2 rows into 1 by solving best scores moving from next to bottom
+  """
+  @spec merge_rows([integer], [integer], [integer]) :: [integer]
+  def merge_rows(_bottom, [] = _next, parsed), do: Enum.reverse(parsed)
+
+  def merge_rows([a, b | rest] = _bottom, [h | t] = _next, parsed) do
+    result = max(a, b) + h
+    merge_rows([b | rest], t, [result | parsed])
+  end
 end

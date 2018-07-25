@@ -27,7 +27,8 @@ defmodule Euler.Q017 do
       },
       3 => %{
         name: "three",
-        suffixed: "thir" # thirty thirteen
+        # thirty thirteen
+        suffixed: "thir"
       },
       4 => %{
         name: "four",
@@ -60,10 +61,10 @@ defmodule Euler.Q017 do
       "five"
 
     """
-    @spec as_words(integer) :: String.t
+    @spec as_words(integer) :: String.t()
     def as_words(i), do: do_as_words(get_units(i), [])
 
-    @spec do_as_words([integer], [String.t]) :: String.t
+    @spec do_as_words([integer], [String.t()]) :: String.t()
     defp do_as_words([0, 0, 0, 0], parsed) do
       parsed
       |> Enum.reverse()
@@ -114,7 +115,7 @@ defmodule Euler.Q017 do
       iex> Euler.Q017.Num.as_prefix(6, 10)
       "six"
     """
-    @spec as_prefix(integer, integer) :: String.t
+    @spec as_prefix(integer, integer) :: String.t()
     def as_prefix(4, :ty), do: @numbers[4][:ty]
 
     def as_prefix(i, _context) do
@@ -134,7 +135,7 @@ defmodule Euler.Q017 do
     def get_units(i), do: do_get_units(i, 1000, [])
 
     @spec do_get_units(integer, integer, [integer]) :: [integer]
-    defp do_get_units(i, 1, units), do: [i | units] |> Enum.reverse
+    defp do_get_units(i, 1, units), do: [i | units] |> Enum.reverse()
 
     defp do_get_units(i, divisor, units) do
       do_get_units(rem(i, divisor), div(divisor, 10), [div(i, divisor) | units])
@@ -150,7 +151,7 @@ defmodule Euler.Q017 do
     19
 
   """
-  @spec run(Range.t) :: integer
+  @spec run(Range.t()) :: integer
   def run(range) do
     range
     |> Enum.map(&Num.as_words/1)
@@ -158,5 +159,4 @@ defmodule Euler.Q017 do
     |> Enum.map(&String.length/1)
     |> Enum.reduce(0, &(&1 + &2))
   end
-
 end
