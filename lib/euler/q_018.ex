@@ -54,17 +54,18 @@ defmodule Euler.Q018 do
 
   # Pattern match bottom 2 rows, get best posibilities for these rows, and
   # prepend the single resulting row to tail
-  defp do_best_route([bottom, next | t]) do
-    do_best_route([merge_rows(bottom, next, []) | t])
+  defp do_best_route([bottom, next_up | t]) do
+    new_row = merge_rows(bottom, next_up, [])
+    do_best_route([new_row | t])
   end
 
   @doc """
   Merge 2 rows into 1 by solving best scores moving from next to bottom
   """
   @spec merge_rows([integer], [integer], [integer]) :: [integer]
-  def merge_rows(_bottom, [] = _next, parsed), do: Enum.reverse(parsed)
+  def merge_rows(_bottom, [] = _next_up, parsed), do: Enum.reverse(parsed)
 
-  def merge_rows([a, b | rest] = _bottom, [h | t] = _next, parsed) do
+  def merge_rows([a, b | rest] = _bottom, [h | t] = _next_up, parsed) do
     result = max(a, b) + h
     merge_rows([b | rest], t, [result | parsed])
   end
