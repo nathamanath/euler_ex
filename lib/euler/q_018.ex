@@ -50,7 +50,7 @@ defmodule Euler.Q018 do
   @spec best_route([[integer]]) :: integer
   def best_route(triangle), do: do_best_route(Enum.reverse(triangle))
 
-  defp do_best_route([score]), do: hd(score)
+  defp do_best_route([[score]]), do: score
 
   # Pattern match bottom 2 rows, get best posibilities for these rows, and
   # prepend the single resulting row to tail
