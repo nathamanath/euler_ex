@@ -17,7 +17,9 @@ defmodule Euler.Q019 do
   (1 Jan 1901 to 31 Dec 2000)?
   """
 
-  @reference_monday ~D[1900-01-01]
+  @reference_monday {1900, 01, 01}
+
+  # TODO: 2 implementations... one with elixir Date module, one without
 
   @doc """
   Count how many sundays between 2 dates.
@@ -27,47 +29,93 @@ defmodule Euler.Q019 do
   is it sunday?
   repeat
   """
-  def count_sundays({from_year, from_month}, {to_year, to_month}) do
-    {:ok, from} = Date.from_erl({from_year, from_month, 01})
-    {:ok, to} = Date.from_erl({to_year, to_month, 01})
+  @spec count_sundays({integer, integer}, {integer, integer}) :: integer
+  # def count_sundays({from_year, from_month}, {to_year, to_month}) do
+  #   {:ok, from} = Date.from_erl({from_year, from_month, 01})
+  #   {:ok, to} = Date.from_erl({to_year, to_month, 01})
+  #   start_day = Date.day_of_week(from)
+  #
+  #   do_count_sundays(from, to, start_day, 0)
+  # end
+  #
+  # defp do_count_sundays(current, to, day, sundays) when current == to, do: sundays
+  #
+  # defp do_count_sundays(current, to, day, sundays) do
+  #   next = Date.add(current, Date.days_in_month(current))
+  #   day = Date.day_of_week(next)
+  #
+  #   do_count_sundays(next, to, day, sundays + day_offset(day))
+  # end
 
-    start_day = Date.day_of_week(from)
+  def count_sundays(from, to) do
+    from = Tuple.append(from, 01)
+    day = day_of_week(from)
 
-    do_count_sundays(from, to, start_day, 0)
+    do_count_sundays(from, Tuple.append(to, 01), day, 0)
   end
 
   defp do_count_sundays(current, to, day, sundays) when current == to, do: sundays
 
-  defp do_count_sundays(current, to, 1, sundays) do
-    # TODO: Log out start of each month between from and to
+  defp do_count_sundays({y, m, d} = current, to, day, sundays) do
+    next = add_days(current, days_in_month(m, y))
+    day = day_of_week(next)
 
-    next = Date.add(current, Date.days_in_month(current))
-    day = Date.day_of_week(next)
-
-    do_count_sundays(next, to, day, sundays + 1)
+    do_count_sundays(next, to, day, sundays + day_offset(day))
   end
 
-  defp do_count_sundays(current, to, day, sundays) do
-    # TODO: Log out start of each month between from and to
-
-    next = Date.add(current, Date.days_in_month(current))
-    day = Date.day_of_week(next)
-
-    do_count_sundays(next, to, day, sundays)
-  end
+  # number of sundays to add to total
+  defp day_offset(7), do: 1
+  defp day_offset(_), do: 0
 
   @doc """
   What day is it by date
 
-  0 == monday
-  6 == sunday
+  1 == monday
+  7 == sunday
   """
-  @spec day_of_week(Date.t()) :: atom
+  @spec day_of_week({integer, integer, integer}) :: atom
   def day_of_week(date) do
-    Date.diff(date, @reference_monday)
-    |> abs()
+    date_diff(@reference_monday, date)
     |> rem(7)
+    |> Kernel.+(1)
   end
+
+  @doc """
+  difference between 2 dates in days
+  """
+  @spec date_diff({integer, integer, integer}, {integer, integer, integer}) :: integer
+  def date_diff(a, b) do
+    do_date_diff(a, b, 0)
+  end
+
+  # add days 1 at a time, count how many
+  defp do_date_diff(a, a, diff), do: diff
+  defp do_date_diff(a, b, diff), do: do_date_diff(add_days(a, 1), b, diff + 1)
+
+  @doc """
+  Add days to a date
+  """
+  @spec add_days({integer, integer, integer}, integer) :: {integer, integer, integer}
+  def add_days(date, 0), do: date
+
+  def add_days({y, m, d} = date, days) do
+    do_add_days(date, days, days_in_month(m, y))
+  end
+
+  defp do_add_days(date, 0, _max_days), do: date
+
+  defp do_add_days({y, m, d} = date, days, max_days) when d + days > max_days do
+    {year, month, _days} = new_date = add_month(date)
+    do_add_days(new_date, d + days - max_days, days_in_month(month, year))
+  end
+
+  defp do_add_days({y, m, d} = date, days, max_days) do
+    do_add_days({y, m, d + days}, 0, days_in_month(m, y))
+  end
+
+  # Add month to a year
+  defp add_month({y, 12, d}), do: {y + 1, 1, 0}
+  defp add_month({y, m, d}), do: {y, m + 1, 0}
 
   @doc """
   Get days in month by month number and year
