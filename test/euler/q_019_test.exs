@@ -9,6 +9,19 @@ defmodule Euler.Q019Test do
     end
   end
 
+  describe "count_sundays_native/2" do
+    test "it counts the sundays on first of month between dates" do
+      assert Q019.count_sundays_native({1901, 01}, {2000, 12}) == 171
+    end
+  end
+
+  describe "cycle_days/2" do
+    test "gets to the right day of week" do
+      assert Q019.cycle_days(0, 14) == 0
+      assert Q019.cycle_days(0, 20) == 6
+    end
+  end
+
   describe "days_in_month/2" do
     test "knows some leap years" do
       assert Q019.days_in_month(2, 2018) == 28
@@ -26,8 +39,8 @@ defmodule Euler.Q019Test do
   end
 
   describe "day_of_week/1" do
-    assert Q019.day_of_week({2018, 07, 27}) == 5
-    assert Q019.day_of_week({2017, 12, 01}) == 5
+    assert Q019.day_of_week({2018, 07, 27}) == 4
+    assert Q019.day_of_week({2017, 12, 01}) == 4
   end
 
   describe "add_days/2" do
