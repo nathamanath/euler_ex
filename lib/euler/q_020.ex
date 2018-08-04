@@ -17,12 +17,12 @@ defmodule Euler.Q020 do
 
   ## Examples
 
-    iex> Euler.Q020.sum_didgets(10)
+    iex> Euler.Q020.sum_factoral_didgets(10)
     27
 
   """
-  @spec sum_didgets(integer) :: integer
-  def sum_didgets(n) do
+  @spec sum_factoral_didgets(integer) :: integer
+  def sum_factoral_didgets(n) do
     n
     |> exp()
     |> Integer.to_string()

@@ -5,9 +5,9 @@ defmodule Euler.Q020Test do
 
   doctest Euler.Q020
 
-  describe "sum_didgets" do
+  describe "sum_factoral_didgets" do
     test "sums didgits of n!" do
-      assert Q020.sum_didgets(100) == 648
+      assert Q020.sum_factoral_didgets(100) == 648
     end
   end
 
