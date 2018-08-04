@@ -13,7 +13,7 @@ defmodule Euler.Q020 do
   cast to string
   split it
   past to integers
-  return sum
+  reduce and return sum of didgets
 
   ## Examples
 

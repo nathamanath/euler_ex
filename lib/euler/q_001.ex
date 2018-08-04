@@ -21,7 +21,9 @@ defmodule Euler.Q001 do
   def run(max), do: sum_multiples(1, 0, max)
 
   defp sum_multiples(max, sum, max), do: sum
-  defp sum_multiples(i, sum, max) when rem(i, 3) == 0 or rem(i, 5) == 0, do: sum_multiples(i + 1, sum + i, max)
-  defp sum_multiples(i, sum, max), do: sum_multiples(i + 1, sum, max)
 
+  defp sum_multiples(i, sum, max) when rem(i, 3) == 0 or rem(i, 5) == 0,
+    do: sum_multiples(i + 1, sum + i, max)
+
+  defp sum_multiples(i, sum, max), do: sum_multiples(i + 1, sum, max)
 end
