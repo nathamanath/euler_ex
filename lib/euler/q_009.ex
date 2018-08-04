@@ -23,8 +23,7 @@ defmodule Euler.Q009 do
 
   # Still brute force, but only tries combos where `a + b + c == 1000`,  and
   # where `c > b > a`
-  defp triplet(_n, a, b, c) when a*a + b*b == c*c, do: a*b*c
-  defp triplet(n, a, b, c) when a+1 >= b-1, do: triplet(n, 1, n-c, c-1)
-  defp triplet(n, a, b, c), do: triplet(n, a+1, b-1 , c)
-
+  defp triplet(_n, a, b, c) when a * a + b * b == c * c, do: a * b * c
+  defp triplet(n, a, b, c) when a + 1 >= b - 1, do: triplet(n, 1, n - c, c - 1)
+  defp triplet(n, a, b, c), do: triplet(n, a + 1, b - 1, c)
 end

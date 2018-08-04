@@ -22,10 +22,9 @@ defmodule Euler.Q007 do
   """
   @spec run(integer) :: integer
   def run(n) do
-    Prime.sequence
+    Prime.sequence()
     |> Stream.take(n)
-    |> Enum.to_list
-    |> List.last
+    |> Enum.to_list()
+    |> List.last()
   end
-
 end

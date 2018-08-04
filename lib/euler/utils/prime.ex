@@ -9,7 +9,7 @@ defmodule Euler.Utils.Prime do
     [2, 3, 5, 7]
 
   """
-  @spec sequence() :: Enumerable.t
+  @spec sequence() :: Enumerable.t()
   def sequence do
     Stream.iterate(2, &sequence_step/1)
     |> Stream.filter(&is_prime/1)
@@ -31,7 +31,7 @@ defmodule Euler.Utils.Prime do
     iex> Euler.Utils.Prime.is_prime(1_000_000)
     false
 
-    iex> Euler.Utils.Prime.is_prime(7919)
+    iex> Euler.Utils.Prime.is_prime(7_919)
     true
 
   """
@@ -44,5 +44,4 @@ defmodule Euler.Utils.Prime do
   defp do_is_prime(n, i) when i * i > n, do: true
   defp do_is_prime(n, i) when rem(n, i) == 0 or rem(n, i + 2) == 0, do: false
   defp do_is_prime(n, i), do: do_is_prime(n, i + 6)
-
 end

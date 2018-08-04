@@ -42,5 +42,4 @@ defmodule Euler.Q004 do
 
   defp is_palindrome?(i) when is_number(i), do: is_palindrome?(to_charlist(i))
   defp is_palindrome?(i), do: i == Enum.reverse(i)
-
 end

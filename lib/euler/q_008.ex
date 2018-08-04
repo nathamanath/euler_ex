@@ -43,12 +43,12 @@ defmodule Euler.Q008 do
 
   """
   @spec run(integer) :: integer
-  def run(n), do: map(n, @number) |> Enum.max
+  def run(n), do: map(n, @number) |> Enum.max()
 
   # map product of each `n` adjacent didgets in `list` in parallel
   # parallel for learning and fun... also it goes a fith faster now
   defp map(n, list) do
-    1..length(list) - n
+    1..(length(list) - n)
     |> Enum.map(&Task.async(fn -> chars_product(&1, n, list) end))
     |> Enum.map(&Task.await/1)
   end
@@ -56,7 +56,7 @@ defmodule Euler.Q008 do
   # get product of `n` chars starting at offset `i` from charlist `list`
   defp chars_product(i, n, list) do
     Enum.slice(list, i, n)
-    |> Enum.reduce(1, fn(char, acc) ->
+    |> Enum.reduce(1, fn char, acc ->
       List.to_integer([char]) * acc
     end)
   end

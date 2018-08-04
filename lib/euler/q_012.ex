@@ -34,7 +34,7 @@ defmodule Euler.Q012 do
   @spec run(integer) :: integer
   def run(n) do
     Stream.unfold({n, 1, 2, 0}, &step/1)
-    |> Enum.max
+    |> Enum.max()
   end
 
   # generate next triangle number unless div > d
@@ -63,10 +63,10 @@ defmodule Euler.Q012 do
   # n - subject
   # i - number were testing against n
   # d - current divisor count
-  defp do_divisors(_n, rtn, i, divisors) when i > rtn, do: length divisors
+  defp do_divisors(_n, rtn, i, divisors) when i > rtn, do: length(divisors)
 
-  defp do_divisors(n, rtn, i, divisors) when rem(n, i) == 0 and i != n/i do
-    do_divisors(n, rtn, i + 1, [i, n/i | divisors])
+  defp do_divisors(n, rtn, i, divisors) when rem(n, i) == 0 and i != n / i do
+    do_divisors(n, rtn, i + 1, [i, n / i | divisors])
   end
 
   defp do_divisors(n, rtn, i, divisors) when rem(n, i) == 0 do
@@ -74,5 +74,4 @@ defmodule Euler.Q012 do
   end
 
   defp do_divisors(n, rtn, i, divisors), do: do_divisors(n, rtn, i + 1, divisors)
-
 end

@@ -46,5 +46,4 @@ defmodule Euler.Q003 do
   # 2 and odds as 2 goes into all evens
   defp top_factor(n, 2, factors), do: top_factor(n, 3, factors)
   defp top_factor(n, i, factors), do: top_factor(n, i + 2, factors)
-
 end

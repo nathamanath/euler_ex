@@ -35,11 +35,10 @@ defmodule Euler.Q006 do
   """
   @spec run(integer) :: integer
   def run(n) do
-    sn = (n * (n + 1) / 2)
+    sn = n * (n + 1) / 2
     sn2 = n * (n + 1) * (2 * n + 1) / 6
 
-    :math.pow(sn, 2) - sn2
+    (:math.pow(sn, 2) - sn2)
     |> round
   end
-
 end

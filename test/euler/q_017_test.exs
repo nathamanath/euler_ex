@@ -35,6 +35,5 @@ defmodule Euler.Q017Test do
       assert Num.as_words(14) == "fourteen"
       assert Num.as_words(40) == "forty"
     end
-
   end
 end

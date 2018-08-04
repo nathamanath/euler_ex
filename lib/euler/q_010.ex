@@ -21,9 +21,8 @@ defmodule Euler.Q010 do
   """
   @spec run(number) :: integer
   def run(n) do
-    Prime.sequence
+    Prime.sequence()
     |> Enum.take_while(&(&1 < n))
     |> Enum.reduce(&(&1 + &2))
   end
-
 end

@@ -40,5 +40,4 @@ defmodule Euler.Q005 do
   defp five(n, i, min, _max) when i < min, do: n
   defp five(n, i, min, max) when rem(n, i) == 0, do: five(n, i - 1, min, max)
   defp five(n, _i, min, max), do: five(n + 2, max, min, max)
-
 end
