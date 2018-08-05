@@ -1,5 +1,6 @@
 defmodule Euler.Q019Test do
   use ExUnit.Case
+  use ExUnitProperties
 
   alias Euler.Q019
 
@@ -20,6 +21,16 @@ defmodule Euler.Q019Test do
       assert Q019.cycle_days(0, 14) == 0
       assert Q019.cycle_days(0, 20) == 6
     end
+
+    property "returns int >=0 <=6" do
+      check all(
+              i <- StreamData.positive_integer(),
+              day <- StreamData.integer(0..6)
+            ) do
+        assert Q019.cycle_days(day, i) >= 0
+        assert Q019.cycle_days(day, i) <= 6
+      end
+    end
   end
 
   describe "days_in_month/2" do
@@ -39,8 +50,10 @@ defmodule Euler.Q019Test do
   end
 
   describe "day_of_week/1" do
-    assert Q019.day_of_week({2018, 07, 27}) == 4
-    assert Q019.day_of_week({2017, 12, 01}) == 4
+    test "knows the day of week" do
+      assert Q019.day_of_week({2018, 07, 27}) == 4
+      assert Q019.day_of_week({2017, 12, 01}) == 4
+    end
   end
 
   describe "add_days/2" do

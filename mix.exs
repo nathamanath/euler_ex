@@ -2,12 +2,14 @@ defmodule Euler.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :euler,
-     version: "0.1.0",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+    [
+      app: :euler,
+      version: "0.1.0",
+      elixir: "~> 1.4",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
   end
 
   # Configuration for the OTP application
@@ -28,6 +30,9 @@ defmodule Euler.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:dialyxir, "~> 0.5", only: [:dev], runtime: false}]
+    [
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+      {:stream_data, "~> 0.1", only: :test}
+    ]
   end
 end
