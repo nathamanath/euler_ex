@@ -16,6 +16,7 @@
     "template": [
       "defmodule {capitalize|dot|camelcase}Test do",
       "  use ExUnit.Case",
+      "  use ExUnitProperties",
       "  ",
       "end"
     ],
