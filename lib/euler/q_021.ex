@@ -21,7 +21,7 @@ defmodule Euler.Q021 do
     |> Stream.map(&{&1, d(&1)})
     |> Stream.reject(fn {n, sum} -> n == sum end)
     |> Stream.filter(fn {n, sum} -> d(sum) == n end)
-    |> Stream.map(fn {n, sum} -> n end)
+    |> Stream.map(fn {n, _sum} -> n end)
     |> Enum.reduce(0, &(&1 + &2))
   end
 
