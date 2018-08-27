@@ -19,7 +19,6 @@ defmodule Euler.Utils.Prime do
   defp sequence_step(i) when i == 2, do: i + 1
   defp sequence_step(i), do: i + 2
 
-  # TODO: learn more about streams...
   # TODO: how to cache primes and use in test?, and does that speed things up?
 
   @doc """

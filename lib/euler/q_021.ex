@@ -18,10 +18,15 @@ defmodule Euler.Q021 do
   @spec sum_amicable_numbers_under(integer) :: integer
   def sum_amicable_numbers_under(n) do
     (n - 1)..1
+    # make tuples of n and sum of proper divisors of n
     |> Stream.map(&{&1, d(&1)})
+    # 'where a ≠ b'
     |> Stream.reject(fn {n, sum} -> n == sum end)
+    # amicalble pairs only
     |> Stream.filter(fn {n, sum} -> d(sum) == n end)
+    # just amicable numbers
     |> Stream.map(fn {n, _sum} -> n end)
+    # sum
     |> Enum.reduce(0, &(&1 + &2))
   end
 
@@ -59,11 +64,11 @@ defmodule Euler.Q021 do
   end
 
   @doc """
-  sum a list of integers
+  the sum of proper divisors of n
   """
   @spec d([integer]) :: integer
-  def d(i) do
-    i
+  def d(n) do
+    n
     |> proper_divisors()
     |> Enum.reduce(0, &(&1 + &2))
   end

@@ -17,6 +17,7 @@ defmodule Euler.Q021Test do
     property "returns an integer" do
       check all(n <- StreamData.positive_integer()) do
         assert is_integer(Q021.sum_amicable_numbers_under(n))
+        assert Q021.sum_amicable_numbers_under(n) >= 0
       end
     end
 
